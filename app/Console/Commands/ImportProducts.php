@@ -38,13 +38,7 @@ class ImportProducts extends Command
         $this->info('Importação concluída.');
     }
 
-    /**
-     * Importa todos os produtos da Fake Store API.
-     *
-     * Busca todos os produtos na API e os salva no banco de dados.
-     *
-     * @return void
-     */
+
     protected function importAllProducts()
     {
         $response = Http::get('https://fakestoreapi.com/products');
@@ -60,15 +54,7 @@ class ImportProducts extends Command
         }
     }
 
-    /**
-     * Importa um produto da Fake Store API pelo seu ID.
-     *
-     * Faz uma requisi o GET para a API e salva o produto no banco de dados.
-     *
-     * @param int $id O ID do produto que ser  importado.
-     *
-     * @return void
-     */
+
     protected function importProductById($id)
     {
         $response = Http::get("https://fakestoreapi.com/products/{$id}");
@@ -81,16 +67,6 @@ class ImportProducts extends Command
         }
     }
 
-    /**
-     * Salva um produto no banco de dados.
-     *
-     * Recebe um array com os dados do produto e o salva no banco de dados.
-     * Se o produto j  existir, ele   atualizado.
-     *
-     * @param array $data Os dados do produto que ser o salvos.
-     *
-     * @return void
-     */
     protected function saveProduct($data)
     {//TODO: VERIFICAR SE O PRODUTO J  EXISTE
         Product::updateOrCreate(
