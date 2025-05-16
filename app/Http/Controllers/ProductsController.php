@@ -139,4 +139,13 @@ class ProductsController extends Controller
             ], 500);
         }
     }
+
+    public function categories()
+    {
+        $categories = $this->repository->distinct('category')->pluck('category');
+
+        return response()->json([
+            'categories' => $categories
+        ], 200);
+    }
 }

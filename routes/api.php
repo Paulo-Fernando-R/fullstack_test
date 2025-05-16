@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::apiResource('/products', ProductsController::class);
 
+Route::get('/products/categories', [ProductsController::class, 'categories']);
+Route::apiResource('/products', ProductsController::class);
 // Route::get('/products', [ProductsController::class, 'index']);
 // Route::get('/products/{id}', [ProductsController::class, 'show']);
 // Route::post('/products', [ProductsController::class, 'store']);
