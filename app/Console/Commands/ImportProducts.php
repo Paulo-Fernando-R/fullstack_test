@@ -77,7 +77,7 @@ class ImportProducts extends Command
                 'category' => $data['category'],
                 'image_url' => $data['image'],
                 'created_at' => now(),
-                'updated_at' => now(),
+               // 'updated_at' => now(),
             ]
         );
     }

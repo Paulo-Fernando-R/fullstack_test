@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Product extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
+   // public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -33,4 +34,5 @@ class Product extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
 }

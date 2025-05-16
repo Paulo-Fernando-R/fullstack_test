@@ -21,12 +21,22 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string|min:3|max:255',
             'description' => 'required|string|min:3',
             'price' => 'required|numeric',
             'category' => 'required|string|max:120',
             'image_url' => 'nullable|url',
         ];
+
+        if($this->method() === 'PUT') {
+            $rules['name'] = 'nullable|string|min:3|max:255';
+            $rules['description'] = 'nullable|string|min:3';
+            $rules['price'] = 'nullable|numeric';
+            $rules['category'] = 'nullable|string|max:120';
+            $rules['image_url'] = 'nullable|url';
+        }
+
+        return $rules;
     }
 }
