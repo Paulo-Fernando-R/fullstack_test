@@ -2,22 +2,47 @@
 import { ref } from "vue";
 import type Product from "~/types/product";
 
-const props = defineProps({
+defineProps<{
     data: {
-        type: Array<Product>,
-        default: () => ({
-            data: [],
-        }),
-    },
-});
+        data: {
+            id: number;
+            name: string;
+            price: number;
+            description: string;
+            category: string;
+            image_url: string;
+        }[];
+        links: {
+            first: string;
+            last: string;
+            prev: string | null;
+            next: string | null;
+        };
+        meta: {
+            current_page: number;
+            last_page: number;
+            links: {
+                url: string | null;
+                label: string;
+                active: boolean;
+            }[];
+        };
+    };
+}>();
 
+const emit = defineEmits<{
+    (e: "page-change", url: string): void;
+}>();
 
+function goToPage(url: string | null) {
+    if (url) emit("page-change", url);
+}
 </script>
 
 <template>
     <div class="grid">
         <div class="list">
-            <div class="card" v-for="e of props.data" :key="e.id">
+            <div class="card" v-for="e of data.data" :key="e.id">
                 <img :src="e.image_url" />
                 <p style="color: black">
                     {{ e.name }}
@@ -29,6 +54,17 @@ const props = defineProps({
             </div>
         </div>
     </div>
+
+    <div class="pagination">
+        <button
+            v-for="link in data.meta.links"
+            :key="link.label"
+            :disabled="!link.url"
+            :class="{ active: link.active }"
+            @click="() => link.url && goToPage(link.url)"
+            v-html="link.label"
+        />
+    </div>
 </template>
 
 <style scoped>
@@ -36,6 +72,7 @@ const props = defineProps({
     display: flex;
     justify-content: center;
     width: 100%;
+    min-height: 100dvh;
 }
 
 .list {
@@ -90,5 +127,35 @@ const props = defineProps({
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
+}
+
+.pagination {
+    margin-top: 2rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100px;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 </style>
