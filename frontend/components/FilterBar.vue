@@ -24,7 +24,7 @@ const handleSearch = () => {
         />
         <div class="filters">
             <select v-model="selected">
-                <option value="null" selected>Select a category</option>
+                <option value="" selected>Select a category</option>
                 <option v-for="e in data.categories" :value="e" :key="e">
                     {{ e }}
                 </option>

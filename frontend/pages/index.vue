@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 const text = ref("");
-const selected = ref(null);
+const selected = ref("");
 const checked = ref(true);
 
 const currentPage = ref(1);
