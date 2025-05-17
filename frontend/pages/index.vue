@@ -24,32 +24,16 @@ const apiUrl = computed(() => {
 
 const { data, status, error, refresh, clear } = await useFetch(apiUrl);
 
-console.log("data", data.value);
 function handlePageChange(url: string) {
     const urlObj = new URL(url);
     const page = urlObj.searchParams.get("page");
     if (page) currentPage.value = parseInt(page);
 
-    // console.log("url", url);
 }
 function handleSearch() {
     currentPage.value = 1; // volta pra primeira página
 }
 
-const router = useRouter();
-// function handleSearch() {
-//     console.log("text", text.value);
-//     console.log("selected", selected.value);
-//     console.log("checked", checked.value);
-//     /*  router.push({
-//         path: "/search",
-//         query: {
-//             text: text.value,
-//             selected: selected.value,
-//             checked: checked.value,
-//         },
-//     });*/
-// }
 </script>
 
 <template>

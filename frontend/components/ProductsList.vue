@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { ProductResponse } from "../types/productResponse";
-
+import type { Product } from "../types/product";
 const props = defineProps<ProductResponse>();
 
 const emit = defineEmits<{
@@ -13,12 +13,9 @@ function goToPage(url: string | null) {
 }
 
 const router = useRouter();
-function handleSearch(string: id) {
+function navigate(obj: Product) {
     router.push({
-        path: "/products",
-        query: {
-            id: id,
-        },
+        path: `/products/${obj.id}`,
     });
 }
 </script>
@@ -26,17 +23,17 @@ function handleSearch(string: id) {
 <template>
     <div class="grid">
         <div class="list">
-            <NuxtLink
+            <div
                 class="card"
                 v-for="e of props.data.data"
                 :key="e.id"
-                :to="`/products/${e.id}`"
+                @click="() => navigate(e)"
             >
                 <img :src="e.image_url" />
                 <p style="color: black">{{ e.name }}</p>
                 <p>{{ e.price }}</p>
-                <button>Add to Cart</button>
-            </NuxtLink>
+                <CartButton  :productId="e.id" />
+            </div>
         </div>
     </div>
 
@@ -105,17 +102,6 @@ function handleSearch(string: id) {
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-}
-
-.card button {
-    background-color: var(--color-text-primary);
-    color: var(--color-bg-primary);
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
 }
 
 .pagination {

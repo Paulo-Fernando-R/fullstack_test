@@ -21,7 +21,7 @@ console.log("data", data.value);
             </div>
 
             <h2>{{ data.product.price }}</h2>
-            <button>Add to Cart</button>
+            <CartButton :productId="data.product.id" />
         </div>
     </div>
 </template>
@@ -86,7 +86,7 @@ console.log("data", data.value);
             font-weight: 600;
         }
 
-        span{
+        span {
             font-size: 0.8rem;
             color: var(--color-text-secondary);
             font-weight: 800;
@@ -96,15 +96,6 @@ console.log("data", data.value);
     h2 {
         font-size: 1.4rem;
         color: var(--color-primary);
-    }
-    button {
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: none;
-        background-color: var(--color-text-primary);
-        color: white;
-        font-size: 1rem;
-        cursor: pointer;
     }
 }
 </style>
