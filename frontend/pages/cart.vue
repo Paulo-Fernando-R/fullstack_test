@@ -1,7 +1,26 @@
 <script setup lang="ts">
 import { currencyFormat } from "@/utils/textFormat";
+
+const toast = useToast();
 const cart = useCartStore();
 
+function remove(id: number) {
+    cart.removeFromCart(id);
+    toast.info({
+        title: "Info",
+        message: "Product removed from cart successfully",
+    });
+}
+
+function decreaseQuantity(id: number) {
+
+    if (cart.items.find((item) => item.id === id)?.quantity === 1) {
+        remove(id);
+        return;
+    }
+    cart.decreaseQuantity(id);
+
+}
 //console.log(cart.items);
 </script>
 
@@ -23,10 +42,7 @@ const cart = useCartStore();
                     {{ currencyFormat(item.price * item.quantity) }}
                 </p>
                 <div class="buttons">
-                    <button
-                        class="quantity"
-                        @click="cart.decreaseQuantity(item.id)"
-                    >
+                    <button class="quantity" @click="decreaseQuantity(item.id)">
                         -
                     </button>
                     <button
@@ -35,9 +51,7 @@ const cart = useCartStore();
                     >
                         +
                     </button>
-                    <button @click="cart.removeFromCart(item.id)">
-                        Remove
-                    </button>
+                    <button @click="remove(item.id)">Remove</button>
                 </div>
             </div>
         </div>

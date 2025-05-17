@@ -1,11 +1,20 @@
 <!-- components/Header.vue -->
+
+<script setup lang="ts">
+const cart = useCartStore();
+
+const qtd = computed(() => {
+    return cart.items.length;
+});
+</script>
 <template>
     <div class="header">
         <h1 class="text-xl font-bold">Ecommerce</h1>
         <nav>
             <NuxtLink to="/cart" class="link">
-                <Icon name="ic:baseline-shopping-cart" size="1.5rem"
-            /></NuxtLink>
+                <Icon name="ic:baseline-shopping-cart" size="1.7rem" />
+                <span class="badge">{{ qtd }}</span>
+            </NuxtLink>
         </nav>
     </div>
 </template>
@@ -31,11 +40,26 @@ h1 {
     color: var(--color-text-secondary);
 }
 .link {
-
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: semibold;
-
+    position: relative;
     color: var(--color-text-secondary);
+
+    .badge {
+        color: var(--color-bg-primary);
+        font-weight: 400;
+        font-size: 0.8rem;
+        position: absolute;
+        top: -17px;
+        right: -8px;
+        background-color: var(--color-primary);
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 </style>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-//const data = ["teste1", "teste2", "teste3", "teste4", "teste5"];
 const baseUrl = "http://127.0.0.1:8000/products/categories";
 
 const text = defineModel("text");
