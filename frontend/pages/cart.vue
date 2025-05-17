@@ -7,7 +7,7 @@ const cart = useCartStore();
 
 <template>
     <div class="container">
-        <h1>Meu Carrinho</h1>
+        <h1>My Cart</h1>
         <div class="list">
             <div class="item" v-for="item in cart.items" :key="item.id">
                 <img :src="item.image_url" alt="" />
@@ -16,10 +16,10 @@ const cart = useCartStore();
                     <p class="price">
                         {{ currencyFormat(item.price) }}
                     </p>
-                    <p>Quantidade: {{ item.quantity }}</p>
+                    <p>Quntity: {{ item.quantity }}</p>
                 </div>
                 <p class="price">
-                    Subtotal:
+                    Total:
                     {{ currencyFormat(item.price * item.quantity) }}
                 </p>
                 <div class="buttons">
@@ -36,7 +36,7 @@ const cart = useCartStore();
                         +
                     </button>
                     <button @click="cart.removeFromCart(item.id)">
-                        Remover
+                        Remove
                     </button>
                 </div>
             </div>

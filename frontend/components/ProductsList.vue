@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import type { ProductResponse } from "../types/productResponse";
 import type { Product } from "../types/product";
+import { currencyFormat } from "@/utils/textFormat";
+
+
 const props = defineProps<ProductResponse>();
 
 const emit = defineEmits<{
@@ -31,7 +34,7 @@ function navigate(obj: Product) {
             >
                 <img :src="e.image_url" />
                 <p style="color: black">{{ e.name }}</p>
-                <p>{{ e.price }}</p>
+                <p>{{ currencyFormat(e.price) }}</p>
                 <CartButton  :product="e" />
             </div>
         </div>
