@@ -1,6 +1,7 @@
 import type { Product } from "@/types/product";
 import { defineStore } from "pinia";
 
+
 interface CartItem extends Product {
     quantity: number;
 }

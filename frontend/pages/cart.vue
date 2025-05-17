@@ -1,11 +1,11 @@
-<template>
-    <!-- <div class="container" v-for="item in cart.items" :key="item.id">
-    <p>{{ item.name }} - {{ item.quantity }}</p>
-    <button @click="cart.decreaseQuantity(item.id)">-</button>
-    <button @click="cart.increaseQuantity(item.id)">+</button>
-    <button @click="cart.removeFromCart(item.id)">Remover</button>
-  </div> -->
+<script setup lang="ts">
+import { currencyFormat } from "@/utils/textFormat";
+const cart = useCartStore();
 
+//console.log(cart.items);
+</script>
+
+<template>
     <div class="container">
         <h1>Meu Carrinho</h1>
         <div class="list">
@@ -13,11 +13,14 @@
                 <img :src="item.image_url" alt="" />
                 <div class="productInfo">
                     <p>{{ item.name }}</p>
-                    <p class="price">R$ {{ item.price.toFixed(2) }}</p>
+                    <p class="price">
+                        {{ currencyFormat(item.price) }}
+                    </p>
                     <p>Quantidade: {{ item.quantity }}</p>
                 </div>
                 <p class="price">
-                    Subtotal: R$ {{ (item.price * item.quantity).toFixed(2) }}
+                    Subtotal:
+                    {{ currencyFormat(item.price * item.quantity) }}
                 </p>
                 <div class="buttons">
                     <button
@@ -40,12 +43,6 @@
         </div>
     </div>
 </template>
-
-<script setup lang="ts">
-const cart = useCartStore();
-
-console.log(cart.items);
-</script>
 
 <style scoped>
 .container {
