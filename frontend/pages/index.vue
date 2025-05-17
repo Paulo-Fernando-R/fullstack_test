@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+const text = ref("");
+const selected = ref(null);
+const checked = ref(true);
 const { data, status, error, refresh, clear } = await useFetch(
     "http://127.0.0.1:8000/products/"
 );
@@ -9,7 +12,12 @@ console.log("data", data.value);
 <template>
     <div class="container">
         <HomeBanner />
-        <FilterBar />
+        <FilterBar
+            v-model:text="text"
+            v-model:checked="checked"
+            v-model:selected="selected"
+        />
+        <!-- <p>{{ text }} {{ selected }} {{ checked }}</p> -->
         <div class="grid">
             <div class="list">
                 <div class="card" v-for="e of data.data" :key="e.id">

@@ -1,28 +1,19 @@
 <script setup lang="ts">
 import { ref } from "vue";
-const text = ref("");
-const select = ref("");
-const checked = ref(true);
+
 const data = ["teste1", "teste2", "teste3", "teste4", "teste5"];
 
-
-const props = defineProps({
-    data: {
-        type: Array,
-        default: () => [],
-    },
-
-});
-
-
+const text = defineModel("text");
+const selected = defineModel("selected");
+const checked = defineModel("checked");
 </script>
 
 <template>
     <div class="filterBox">
         <input v-model="text" placeholder="Search" />
         <div class="filters">
-            <select name="" id="">
-                <option value="" disabled selected>Category</option>
+            <select v-model="selected">
+                <option value="null" selected>Select a category</option>
                 <option v-for="e in data" :value="e">{{ e }}</option>
             </select>
 
@@ -42,7 +33,6 @@ const props = defineProps({
     justify-content: flex-start;
     align-items: center;
     padding: 1rem 2rem;
-    /* background-color: var(--color-bg-secondary); */
     margin-top: -4px;
     gap: 16px;
 
@@ -50,11 +40,9 @@ const props = defineProps({
         padding: 8px 8px;
         border-radius: 8px;
         border: 1px solid var(--color-text-terciary);
-        /* background-color: var(--color-text-terciary); */
         stroke: none;
         outline: none;
         font-size: 0.8rem;
-        /* color: var(--color-bg-primary); */
         width: 30%;
         max-width: 300px;
     }
@@ -64,7 +52,6 @@ const props = defineProps({
         justify-content: center;
         gap: 16px;
         align-items: center;
-        /* margin-left: 1rem; */
 
         .checkbox {
             display: flex;
