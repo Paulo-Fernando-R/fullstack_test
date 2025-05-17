@@ -15,7 +15,7 @@ const apiUrl = computed(() => {
     if (selected.value !== null) params.append("category", selected.value);
     if (checked.value !== null)
         params.append("with_image", checked.value.toString());
-    //TODO VERIFICAR CATEGORIA NULL
+
     params.append("page", currentPage.value.toString());
     const finalUrl = `${baseUrl}?${params.toString()}`;
     console.log("finalUrl", finalUrl);
@@ -28,12 +28,10 @@ function handlePageChange(url: string) {
     const urlObj = new URL(url);
     const page = urlObj.searchParams.get("page");
     if (page) currentPage.value = parseInt(page);
-
 }
 function handleSearch() {
     currentPage.value = 1; // volta pra primeira página
 }
-
 </script>
 
 <template>

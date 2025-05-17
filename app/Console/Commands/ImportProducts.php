@@ -68,7 +68,7 @@ class ImportProducts extends Command
     }
 
     protected function saveProduct($data)
-    {//TODO: VERIFICAR SE O PRODUTO J  EXISTE
+    {
         Product::updateOrCreate(
             [
                 'name' => $data['title'],
