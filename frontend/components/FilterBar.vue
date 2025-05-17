@@ -6,11 +6,21 @@ const data = ["teste1", "teste2", "teste3", "teste4", "teste5"];
 const text = defineModel("text");
 const selected = defineModel("selected");
 const checked = defineModel("checked");
+
+const emits = defineEmits(["keyup"]);
+
+const handleSearch = () => {
+    emits("keyup");
+};
 </script>
 
 <template>
     <div class="filterBox">
-        <input v-model="text" placeholder="Search" />
+        <input
+            v-model="text"
+            placeholder="Search"
+            @keyup.enter="handleSearch"
+        />
         <div class="filters">
             <select v-model="selected">
                 <option value="null" selected>Select a category</option>
