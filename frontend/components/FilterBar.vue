@@ -4,6 +4,17 @@ const text = ref("");
 const select = ref("");
 const checked = ref(true);
 const data = ["teste1", "teste2", "teste3", "teste4", "teste5"];
+
+
+const props = defineProps({
+    data: {
+        type: Array,
+        default: () => [],
+    },
+
+});
+
+
 </script>
 
 <template>
