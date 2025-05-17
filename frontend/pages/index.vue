@@ -23,6 +23,7 @@ const apiUrl = computed(() => {
 });
 
 const { data, status, error, refresh, clear } = await useFetch(apiUrl);
+
 console.log("data", data.value);
 function handlePageChange(url: string) {
     const urlObj = new URL(url);

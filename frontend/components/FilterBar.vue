@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const data = ["teste1", "teste2", "teste3", "teste4", "teste5"];
+//const data = ["teste1", "teste2", "teste3", "teste4", "teste5"];
+const baseUrl = "http://127.0.0.1:8000/products/categories";
 
 const text = defineModel("text");
 const selected = defineModel("selected");
 const checked = defineModel("checked");
-
 const emits = defineEmits(["keyup"]);
+
+const { data, status, error, refresh, clear } = await useFetch(baseUrl);
 
 const handleSearch = () => {
     emits("keyup");
@@ -24,7 +26,9 @@ const handleSearch = () => {
         <div class="filters">
             <select v-model="selected">
                 <option value="null" selected>Select a category</option>
-                <option v-for="e in data" :value="e">{{ e }}</option>
+                <option v-for="e in data.categories" :value="e" :key="e">
+                    {{ e }}
+                </option>
             </select>
 
             <div class="checkbox">
