@@ -3,6 +3,7 @@ import { ref } from "vue";
 import type { ProductResponse } from "../types/productResponse";
 
 const props = defineProps<ProductResponse>();
+
 const emit = defineEmits<{
     (e: "page-change", url: string): void;
 }>();
@@ -10,21 +11,32 @@ const emit = defineEmits<{
 function goToPage(url: string | null) {
     if (url) emit("page-change", url);
 }
+
+const router = useRouter();
+function handleSearch(string: id) {
+    router.push({
+        path: "/products",
+        query: {
+            id: id,
+        },
+    });
+}
 </script>
 
 <template>
     <div class="grid">
         <div class="list">
-            <div class="card" v-for="e of props.data.data" :key="e.id">
+            <NuxtLink
+                class="card"
+                v-for="e of props.data.data"
+                :key="e.id"
+                :to="`/products/${e.id}`"
+            >
                 <img :src="e.image_url" />
-                <p style="color: black">
-                    {{ e.name }}
-                </p>
+                <p style="color: black">{{ e.name }}</p>
                 <p>{{ e.price }}</p>
                 <button>Add to Cart</button>
-
-                <NuxtLink :to="e.image_url"> Saiba mais </NuxtLink>
-            </div>
+            </NuxtLink>
         </div>
     </div>
 
@@ -70,7 +82,9 @@ function goToPage(url: string | null) {
     gap: 16px;
     padding: 16px;
     overflow: hidden;
+    text-decoration: none;
 }
+
 .card img {
     width: 300px;
     height: 200px;
@@ -79,11 +93,13 @@ function goToPage(url: string | null) {
 
     border-radius: 8px;
 }
+
 .card p {
     color: var(--color-text-secondary);
     font-size: 0.9rem;
     font-weight: 600;
 }
+
 .card a {
     color: var(--color-text-primary);
     font-size: 1rem;
