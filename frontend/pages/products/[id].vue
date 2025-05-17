@@ -5,12 +5,13 @@ const route = useRoute();
 const productId = route.params.id;
 
 const apiUrl = `http://127.0.0.1:8000/products/${productId}`;
-const { data, status, error, refresh, clear } = await useFetch(apiUrl);
+const { data, status, error, refresh, clear, pending } = await useFetch(apiUrl);
 console.log("data", data.value);
 </script>
 
 <template>
     <div class="container">
+        <Loading v-if="pending" />
         <div class="imageBox">
             <img :src="data.product.image_url" alt="" />
         </div>
@@ -62,7 +63,6 @@ console.log("data", data.value);
     width: 50%;
     height: 400px;
     max-width: 600px;
-    /* height: 100%; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

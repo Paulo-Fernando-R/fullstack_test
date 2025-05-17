@@ -22,7 +22,7 @@ const apiUrl = computed(() => {
     return finalUrl;
 });
 
-const { data, status, error, refresh, clear } = await useFetch(apiUrl);
+const { data, status, error, refresh, clear, pending } = await useFetch(apiUrl);
 
 function handlePageChange(url: string) {
     const urlObj = new URL(url);
@@ -36,6 +36,7 @@ function handleSearch() {
 
 <template>
     <div class="container">
+        <Loading v-if="pending" />
         <HomeBanner />
         <FilterBar
             v-model:text="text"
@@ -43,6 +44,7 @@ function handleSearch() {
             v-model:selected="selected"
             @keyup="handleSearch"
         />
+
         <ProductsList
             v-if="data"
             :data="data"
@@ -53,7 +55,6 @@ function handleSearch() {
 
 <style scoped>
 .container {
-    /* all: unset; */
     width: 100%;
     height: 100dvh;
     background-color: var(--color-bg-primary);
