@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import type { Product } from "../types/product";
 const props = defineProps({
-    productId: {
-        type: Number,
+    product: {
+        type: Object as () => Product,
         required: true,
     },
 });
 
+const cart = useCartStore();
+
+
+
 function handleClick() {
-    console.log(props);
+    console.log(props.product);
+     cart.addToCart(props.product);
 }
 </script>
 

@@ -21,7 +21,7 @@ console.log("data", data.value);
             </div>
 
             <h2>{{ data.product.price }}</h2>
-            <CartButton :productId="data.product.id" />
+            <CartButton :product="data.product" />
         </div>
     </div>
 </template>

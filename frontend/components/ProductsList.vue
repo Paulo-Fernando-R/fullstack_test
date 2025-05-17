@@ -32,7 +32,7 @@ function navigate(obj: Product) {
                 <img :src="e.image_url" />
                 <p style="color: black">{{ e.name }}</p>
                 <p>{{ e.price }}</p>
-                <CartButton  :productId="e.id" />
+                <CartButton  :product="e" />
             </div>
         </div>
     </div>

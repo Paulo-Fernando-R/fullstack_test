@@ -3,7 +3,7 @@
     <div class="header">
         <h1 class="text-xl font-bold">Ecommerce</h1>
         <nav>
-            <NuxtLink to="/" class="link">
+            <NuxtLink to="/cart" class="link">
                 <Icon name="ic:baseline-shopping-cart" size="1.5rem"
             /></NuxtLink>
         </nav>
