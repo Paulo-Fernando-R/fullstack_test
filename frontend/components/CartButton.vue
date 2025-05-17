@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Product } from "../types/product";
+
+const toast = useToast();
 const props = defineProps({
     product: {
         type: Object as () => Product,
@@ -9,11 +11,13 @@ const props = defineProps({
 
 const cart = useCartStore();
 
-
-
 function handleClick() {
-    console.log(props.product);
-     cart.addToCart(props.product);
+    //  console.log(props.product);
+    cart.addToCart(props.product);
+    toast.success({
+        title: "Success!",
+        message: "Product added to cart successfully.",
+    });
 }
 </script>
 

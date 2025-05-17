@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { currencyFormat } from "@/utils/textFormat";
+
 const route = useRoute();
 const productId = route.params.id;
 
@@ -20,7 +22,7 @@ console.log("data", data.value);
                 <span>Category: {{ data.product.category }}</span>
             </div>
 
-            <h2>{{ data.product.price }}</h2>
+            <h2>{{ currencyFormat(data.product.price) }}</h2>
             <CartButton :product="data.product" />
         </div>
     </div>
@@ -95,7 +97,7 @@ console.log("data", data.value);
 
     h2 {
         font-size: 1.4rem;
-        color: var(--color-primary);
+        color: var(--color-text-primary);
     }
 }
 </style>
