@@ -8,8 +8,6 @@ const checked = ref(true);
 const currentPage = ref(1);
 const baseUrl = "http://127.0.0.1:8000/products";
 
-
-
 const apiUrl = computed(() => {
     const params = new URLSearchParams();
 
@@ -25,7 +23,7 @@ const apiUrl = computed(() => {
 });
 
 const { data, status, error, refresh, clear } = await useFetch(apiUrl);
- console.log("data", data.value);
+console.log("data", data.value);
 function handlePageChange(url: string) {
     const urlObj = new URL(url);
     const page = urlObj.searchParams.get("page");

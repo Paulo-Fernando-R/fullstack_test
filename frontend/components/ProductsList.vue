@@ -1,35 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type Product from "~/types/product";
+import type { ProductResponse } from "../types/productResponse";
 
-defineProps<{
-    data: {
-        data: {
-            id: number;
-            name: string;
-            price: number;
-            description: string;
-            category: string;
-            image_url: string;
-        }[];
-        links: {
-            first: string;
-            last: string;
-            prev: string | null;
-            next: string | null;
-        };
-        meta: {
-            current_page: number;
-            last_page: number;
-            links: {
-                url: string | null;
-                label: string;
-                active: boolean;
-            }[];
-        };
-    };
-}>();
-
+const props = defineProps<ProductResponse>();
 const emit = defineEmits<{
     (e: "page-change", url: string): void;
 }>();
@@ -42,7 +15,7 @@ function goToPage(url: string | null) {
 <template>
     <div class="grid">
         <div class="list">
-            <div class="card" v-for="e of data.data" :key="e.id">
+            <div class="card" v-for="e of props.data.data" :key="e.id">
                 <img :src="e.image_url" />
                 <p style="color: black">
                     {{ e.name }}

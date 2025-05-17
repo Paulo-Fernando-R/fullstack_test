@@ -1,6 +1,6 @@
 import type { Product } from "@/types/product";
 
-export interface ProductsResponse {
+export interface ProductResponse {
     data: {
         data: Product[];
         links: {
