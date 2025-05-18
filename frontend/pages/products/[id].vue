@@ -30,6 +30,10 @@ async function deleteProduct() {
         router.replace("/");
     }
 }
+
+function navigate(){
+    router.push("/edit/"+productId);
+}
 </script>
 
 <template>
@@ -60,7 +64,7 @@ async function deleteProduct() {
 
         <div class="buttons">
             <button @click="deleteProduct">Delete</button>
-            <button @click="deleteProduct">Edit</button>
+            <button @click="navigate">Edit</button>
         </div>
     </div>
 </template>
