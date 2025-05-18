@@ -13,7 +13,8 @@ class ImportProducts extends Command
      *
      * @var string
      */
-    protected $signature = 'products:import {--id= : ID do produto a ser importado}';
+    // protected $signature = 'products:import {--id= : ID do produto a ser importado}';
+    protected $signature = 'products:import {--id= : ID do produto a ser importado} {--offline : Usar dados locais ao invés da API}';
 
     /**
      * The console command description.
@@ -28,19 +29,35 @@ class ImportProducts extends Command
     public function handle()
     {
         $id = $this->option('id');
+        $offline = $this->option('offline');
 
         if ($id) {
-            $this->importProductById($id);
+            $this->importProductById($id, $offline);
         } else {
-            $this->importAllProducts();
+            $this->importAllProducts($offline);
         }
 
         $this->info('Importação concluída.');
     }
 
 
-    protected function importAllProducts()
+    protected function importAllProducts($offline = false)
     {
+        if ($offline) {
+            $jsonPath = storage_path('app/fake_store.json');
+            if (!file_exists($jsonPath)) {
+                return $this->error("Arquivo fake_store.json não encontrado.");
+            }
+
+            $items = json_decode(file_get_contents($jsonPath), true);
+
+            foreach ($items as $item) {
+                $this->saveProduct($item);
+            }
+
+            return $this->info('Produtos importados a partir do arquivo local.');
+        }
+
         $response = Http::get('https://fakestoreapi.com/products');
 
         if ($response->successful()) {
@@ -48,22 +65,38 @@ class ImportProducts extends Command
                 $this->saveProduct($item);
             }
 
-            $this->info('Todos os produtos foram importados.');
+            $this->info('Todos os produtos foram importados da API.');
         } else {
-            $this->error('Erro ao buscar os produtos.');
+            $this->error('Erro ao buscar os produtos da API.');
         }
     }
 
-
-    protected function importProductById($id)
+    protected function importProductById($id, $offline = false)
     {
+        if ($offline) {
+            $jsonPath = storage_path('app/fake_store.json');
+            if (!file_exists($jsonPath)) {
+                return $this->error("Arquivo fake_store.json não encontrado.");
+            }
+
+            $items = json_decode(file_get_contents($jsonPath), true);
+            $product = collect($items)->firstWhere('id', $id);
+
+            if ($product) {
+                $this->saveProduct($product);
+                return $this->info("Produto com ID {$id} importado do arquivo local.");
+            } else {
+                return $this->error("Produto com ID {$id} não encontrado no arquivo local.");
+            }
+        }
+
         $response = Http::get("https://fakestoreapi.com/products/{$id}");
 
         if ($response->successful()) {
             $this->saveProduct($response->json());
-            $this->info("Produto com ID {$id} importado.");
+            $this->info("Produto com ID {$id} importado da API.");
         } else {
-            $this->error("Produto com ID {$id} não encontrado.");
+            $this->error("Produto com ID {$id} não encontrado na API.");
         }
     }
 
@@ -77,7 +110,7 @@ class ImportProducts extends Command
                 'category' => $data['category'],
                 'image_url' => $data['image'],
                 'created_at' => now(),
-               // 'updated_at' => now(),
+                // 'updated_at' => now(),
             ]
         );
     }
