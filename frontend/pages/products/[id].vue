@@ -3,11 +3,33 @@ import { currencyFormat } from "@/utils/textFormat";
 
 const runtime = useRuntimeConfig();
 const route = useRoute();
+const router = useRouter();
+const toast = useToast();
 
 const productId = route.params.id;
 const apiUrl = `${runtime.public.baseApiUrl}/products/${productId}`;
 
 const { data, error, pending } = await useFetch(apiUrl);
+
+async function deleteProduct() {
+    const { data, error } = await useFetch(apiUrl, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (error.value) {
+        toast.error({ title: "Error!", message: "Something went wrong." });
+    } else {
+        toast.success({
+            title: "Success!",
+            message: "Product deleted successfully.",
+        });
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        router.replace("/");
+    }
+}
 </script>
 
 <template>
@@ -28,6 +50,19 @@ const { data, error, pending } = await useFetch(apiUrl);
             <CartButton :product="data.product" />
         </div>
     </div>
+
+    <div class="operations">
+        <h3>Operations</h3>
+        <p>
+            This session has no context. It is only used to perform crud
+            operations.
+        </p>
+
+        <div class="buttons">
+            <button @click="deleteProduct">Delete</button>
+            <button @click="deleteProduct">Edit</button>
+        </div>
+    </div>
 </template>
 
 <style scoped>
@@ -35,7 +70,7 @@ const { data, error, pending } = await useFetch(apiUrl);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     width: 100%;
     max-width: 1700px;
     padding: 2rem;
@@ -159,6 +194,50 @@ const { data, error, pending } = await useFetch(apiUrl);
             font-weight: 800;
             text-align: center;
         }
+    }
+}
+
+.operations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem;
+    margin: auto;
+
+    h3 {
+        font-size: 1.5rem;
+        color: var(--color-text-secondary);
+        font-weight: 800;
+        text-align: center;
+    }
+    p {
+        font-size: 0.8rem;
+        color: var(--color-text-secondary);
+        text-align: center;
+        line-height: 1.5;
+        font-weight: 600;
+    }
+    .buttons {
+        display:  flex;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+    }
+
+    button {
+        background-color: var(--color-text-secondary);
+        font-size: 1rem;
+        color: var(--color-bg-primary);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
+        width: 80px;
+
     }
 }
 </style>
