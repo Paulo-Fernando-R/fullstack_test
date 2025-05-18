@@ -13,13 +13,11 @@ function remove(id: number) {
 }
 
 function decreaseQuantity(id: number) {
-
     if (cart.items.find((item) => item.id === id)?.quantity === 1) {
         remove(id);
         return;
     }
     cart.decreaseQuantity(id);
-
 }
 //console.log(cart.items);
 </script>
@@ -36,11 +34,12 @@ function decreaseQuantity(id: number) {
                         {{ currencyFormat(item.price) }}
                     </p>
                     <p>Quntity: {{ item.quantity }}</p>
-                </div>
-                <p class="price">
+                     <p class="price">
                     Total:
                     {{ currencyFormat(item.price * item.quantity) }}
                 </p>
+                </div>
+
                 <div class="buttons">
                     <button class="quantity" @click="decreaseQuantity(item.id)">
                         -
@@ -80,6 +79,13 @@ function decreaseQuantity(id: number) {
     gap: 16px;
 }
 
+@media (width <= 600px) {
+    .list {
+        width: 100%;
+        padding: 0 1rem;
+    }
+}
+
 .item {
     display: flex;
     justify-content: space-between;
@@ -93,7 +99,7 @@ function decreaseQuantity(id: number) {
     img {
         width: 100px;
         height: 100px;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 8px;
     }
 
@@ -101,6 +107,7 @@ function decreaseQuantity(id: number) {
         font-size: 0.9rem;
         font-weight: 600;
         color: var(--color-text-secondary);
+        line-height: .9rem;
     }
     button {
         background-color: var(--color-text-primary);
@@ -115,17 +122,37 @@ function decreaseQuantity(id: number) {
         font-weight: 500;
     }
     .price {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        font-weight: 800;
         color: var(--color-text-primary);
     }
+
+    @media (width <= 600px) {
+        img {
+            width: 60px;
+            height: 60px;
+        }
+        p {
+            font-size: 0.7rem;
+        }
+        .price {
+            font-size: 0.9rem;
+        }
+        button {
+            font-size: 0.7rem;
+
+        }
+    }
 }
+
+
 
 .productInfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: 8px;
+    gap: 10px;
     flex: 1;
     word-wrap: break-word;
 }
@@ -139,6 +166,28 @@ function decreaseQuantity(id: number) {
 
     .quantity {
         width: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
     }
+}
+
+@media (width <= 600px) {
+   .buttons{
+        flex-direction: column;
+        gap: 4px;
+
+        .quantity {
+            width: 20px;
+            height: 20px;
+        }
+    }
+    .productInfo{
+        width: 50%;
+        flex: 2;
+    }
+
+
 }
 </style>

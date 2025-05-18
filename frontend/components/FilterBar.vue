@@ -72,6 +72,9 @@ const handleSearch = () => {
             justify-content: center;
             align-items: center;
             gap: 0px;
+            background-color: var(--color-bg-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
         }
 
         label {
@@ -99,6 +102,36 @@ const handleSearch = () => {
         font-size: 0.8rem;
         color: var(--color-text-secondary);
         width: 150px;
+    }
+}
+
+@media (width <= 600px) {
+    .filterBox {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 1rem;
+
+        input {
+            width: 100%;
+            max-width: 100%;
+        }
+        select {
+            width: 100%;
+            max-width: 100%;
+        }
+        .filters {
+            width: 100%;
+            align-items: space-between;
+            gap: 8px;
+
+            .checkbox {
+            width: 100%;
+            justify-content: space-between;
+            padding: 8px ;
+        }
+        }
+
     }
 }
 </style>

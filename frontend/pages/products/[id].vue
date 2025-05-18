@@ -42,6 +42,17 @@ const { data, error, pending } = await useFetch(apiUrl);
     margin: auto;
     gap: 2rem;
 }
+
+@media (width <= 600px) {
+    .container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 1rem;
+        padding-top: 4.5rem;
+    }
+}
 .imageBox {
     max-width: 50%;
     /* height: 100%; */
@@ -55,8 +66,19 @@ const { data, error, pending } = await useFetch(apiUrl);
     img {
         width: 100%;
         max-height: 500px;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 8px;
+    }
+}
+
+@media (width <= 600px) {
+    .imageBox {
+        max-width: 80%;
+        padding: 0;
+        margin: 0;
+        img {
+            width: 80%;
+        }
     }
 }
 
@@ -99,6 +121,37 @@ const { data, error, pending } = await useFetch(apiUrl);
     h2 {
         font-size: 1.4rem;
         color: var(--color-text-primary);
+    }
+}
+
+@media (width <= 600px) {
+    .productBox {
+        width: 100%;
+        height: fit-content;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        gap: 24px;
+        .productInfo {
+            gap: 8px;
+            h1 {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            p {
+                text-align: center;
+            }
+            span {
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        h2 {
+           font-weight: 800;
+            text-align: center;
+        }
     }
 }
 </style>
