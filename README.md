@@ -7,11 +7,18 @@ Este guia detalha os passos necessários para executar o projeto localmente. Cer
 
 1.  **Clonar o Repositório:**
     ```bash
-    git clone [https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content](https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content)
+    git clone [https://github.com/Paulo-Fernando-R/fullstack_test.git]
     cd [nome do diretório do seu projeto]
     ```
 
-2.  **Configurar o Arquivo de Ambiente:**
+2. **Configurar o Banco de Dados:**
+    * Crie um novo banco de dados MySQL em sua máquina local. Por exemplo, você pode utilizar o seguinte comando no MySQL:
+
+        ```sql
+        CREATE DATABASE nome_do_banco;
+        ```
+    * Anote o nome do banco de dados que você acabou de criar, pois ele será utilizado no próximo passo.
+3.  **Configurar o Arquivo de Ambiente:**
     * Duplique o arquivo `.env.example` localizado na raiz do projeto e renomeie a cópia para `.env`.
     * Abra o arquivo `.env` e substitua os valores padrão pelas credenciais do seu banco de dados MySQL:
 
@@ -26,7 +33,7 @@ Este guia detalha os passos necessários para executar o projeto localmente. Cer
 
         **Nota:** Se você não tiver uma senha para o seu banco de dados local, deixe `DB_PASSWORD` em branco.
 
-3.  **Executar os Comandos do Backend:**
+4.  **Executar os Comandos do Backend:**
     Abra um terminal no diretório raiz do projeto e execute os seguintes comandos na ordem:
 
     ```bash
