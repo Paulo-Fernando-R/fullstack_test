@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const baseUrl = "http://127.0.0.1:8000/products/categories";
+const runtime = useRuntimeConfig();
+const baseUrl = `${runtime.public.baseApiUrl}/products/categories`;
 
 const text = defineModel("text");
 const selected = defineModel("selected");
 const checked = defineModel("checked");
 const emits = defineEmits(["keyup"]);
 
-const { data, status, error, refresh, clear } = await useFetch(baseUrl);
+const { data, status, error } = await useFetch(baseUrl);
 
 const handleSearch = () => {
     emits("keyup");

@@ -4,7 +4,6 @@ import type { ProductResponse } from "../types/productResponse";
 import type { Product } from "../types/product";
 import { currencyFormat } from "@/utils/textFormat";
 
-
 const props = defineProps<ProductResponse>();
 
 const emit = defineEmits<{

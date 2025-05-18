@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+const runtime = useRuntimeConfig();
+const baseUrl = runtime.public.baseApiUrl;
+
 const text = ref("");
 const selected = ref("");
 const checked = ref(true);
-
 const currentPage = ref(1);
-const baseUrl = "http://127.0.0.1:8000/products";
 
 const apiUrl = computed(() => {
     const params = new URLSearchParams();
@@ -17,20 +18,20 @@ const apiUrl = computed(() => {
         params.append("with_image", checked.value.toString());
 
     params.append("page", currentPage.value.toString());
-    const finalUrl = `${baseUrl}?${params.toString()}`;
-    console.log("finalUrl", finalUrl);
+    const finalUrl = `${baseUrl}/products?${params.toString()}`;
     return finalUrl;
 });
 
-const { data, status, error, refresh, clear, pending } = await useFetch(apiUrl);
+const { data, status, error, pending } = await useFetch(apiUrl);
 
 function handlePageChange(url: string) {
     const urlObj = new URL(url);
     const page = urlObj.searchParams.get("page");
     if (page) currentPage.value = parseInt(page);
 }
+
 function handleSearch() {
-    currentPage.value = 1; // volta pra primeira página
+    currentPage.value = 1;
 }
 </script>
 

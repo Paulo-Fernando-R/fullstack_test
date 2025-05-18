@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { currencyFormat } from "@/utils/textFormat";
 
+const runtime = useRuntimeConfig();
 const route = useRoute();
-const productId = route.params.id;
 
-const apiUrl = `http://127.0.0.1:8000/products/${productId}`;
-const { data, status, error, refresh, clear, pending } = await useFetch(apiUrl);
-console.log("data", data.value);
+const productId = route.params.id;
+const apiUrl = `${runtime.public.baseApiUrl}/products/${productId}`;
+
+const { data, error, pending } = await useFetch(apiUrl);
 </script>
 
 <template>
