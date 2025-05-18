@@ -50,7 +50,7 @@ const { data, error, pending } = await useFetch(apiUrl);
         align-items: center;
         height: 100%;
         padding: 1rem;
-        padding-top: 4.5rem;
+        padding-top: 6rem;
     }
 }
 .imageBox {
@@ -68,16 +68,21 @@ const { data, error, pending } = await useFetch(apiUrl);
         max-height: 500px;
         object-fit: contain;
         border-radius: 8px;
+        mix-blend-mode: multiply;
     }
 }
 
 @media (width <= 600px) {
     .imageBox {
         max-width: 80%;
+        width: 80%;
+        height: 300px;
         padding: 0;
         margin: 0;
         img {
             width: 80%;
+            height: 250px;
+            object-fit: contain;
         }
     }
 }
@@ -134,12 +139,14 @@ const { data, error, pending } = await useFetch(apiUrl);
         align-items: center;
         gap: 24px;
         .productInfo {
-            gap: 8px;
+            gap: 16px;
             h1 {
+                width: 100%;
                 font-size: 1.5rem;
                 text-align: center;
             }
             p {
+                width: 100%;
                 text-align: center;
             }
             span {
@@ -149,7 +156,7 @@ const { data, error, pending } = await useFetch(apiUrl);
         }
 
         h2 {
-           font-weight: 800;
+            font-weight: 800;
             text-align: center;
         }
     }

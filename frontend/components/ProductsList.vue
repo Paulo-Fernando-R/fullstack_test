@@ -89,7 +89,7 @@ function navigate(obj: Product) {
     height: 200px;
 
     object-fit: contain;
-
+  mix-blend-mode: multiply;
     border-radius: 8px;
 }
 

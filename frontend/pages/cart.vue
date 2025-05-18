@@ -101,6 +101,7 @@ function decreaseQuantity(id: number) {
         height: 100px;
         object-fit: contain;
         border-radius: 8px;
+          mix-blend-mode: multiply;
     }
 
     p {
