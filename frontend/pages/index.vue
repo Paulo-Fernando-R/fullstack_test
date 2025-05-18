@@ -5,14 +5,24 @@ const runtime = useRuntimeConfig();
 const baseUrl = runtime.public.baseApiUrl;
 
 const text = ref("");
+const debouncedText = ref("");
 const selected = ref("");
 const checked = ref(true);
 const currentPage = ref(1);
 
+let debounceTimeout: ReturnType<typeof setTimeout>;
+watch(text, (newVal) => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+        debouncedText.value = newVal;
+        currentPage.value = 1;
+    }, 500);
+});
+
 const apiUrl = computed(() => {
     const params = new URLSearchParams();
-
-    if (text.value) params.append("name", text.value);
+    if (debouncedText.value) params.append("name", debouncedText.value);
+    //  if (text.value) params.append("name", text.value);
     if (selected.value !== null) params.append("category", selected.value);
     if (checked.value !== null)
         params.append("with_image", checked.value.toString());
