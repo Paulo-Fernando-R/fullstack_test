@@ -4,23 +4,20 @@ import { productSchema } from "@/validation/productSchema";
 import { ValidationError } from "yup";
 
 const runtime = useRuntimeConfig();
-const route = useRoute();
+
 const router = useRouter();
 const toast = useToast();
 
-const productId = route.params.id;
-const apiUrl = `${runtime.public.baseApiUrl}/products/${productId}`;
-const { data, error, pending } = await useFetch(apiUrl);
+const apiUrl = `${runtime.public.baseApiUrl}/products`;
 const loading = ref(false);
 
 const form = ref({
-    name: data.value.product.name,
-    price: data.value.product.price,
-    category: data.value.product.category,
-    image_url: data.value.product.image_url,
-    description: data.value.product.description,
+    name: "",
+    price: "",
+    category: "",
+    image_url: "",
+    description: "",
 });
-
 const errors = ref<Record<string, string>>({});
 
 async function validateForm(): Promise<boolean> {
@@ -50,10 +47,10 @@ async function handleSubmit() {
         });
         return;
     }
-    console.log("form.value", form.value);
+
     loading.value = true;
     const { data, error } = await useFetch(apiUrl, {
-        method: "PUT",
+        method: "POST",
         body: form.value,
     });
 
@@ -70,19 +67,13 @@ async function handleSubmit() {
 
     loading.value = false;
     await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    navigate();
-}
-
-function navigate() {
-    router.replace("/products/" + productId);
 }
 </script>
 
 <template>
     <Loading v-if="loading" />
     <div class="container">
-        <h1>Edit Product</h1>
+        <h1>Create Producto</h1>
 
         <form @submit.prevent="handleSubmit">
             <div class="inputBox">
@@ -220,6 +211,10 @@ form {
         cursor: pointer;
         font-size: 1rem;
         font-weight: 600;
+    }
+    .error {
+        color: red;
+        font-size: 0.75rem;
     }
 }
 </style>

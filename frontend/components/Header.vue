@@ -13,6 +13,10 @@ const qtd = computed(() => {
             <h1 class="text-xl font-bold">Ecommerce</h1>
         </NuxtLink>
 
+         <NuxtLink to="/create" class="link">
+            <h1 class="text-xl font-bold">Create Product</h1>
+        </NuxtLink>
+
         <nav>
             <NuxtLink to="/cart" class="link">
                 <Icon name="ic:baseline-shopping-cart" size="1.7rem" />
