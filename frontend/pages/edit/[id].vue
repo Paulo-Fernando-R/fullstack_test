@@ -8,30 +8,60 @@ const toast = useToast();
 
 const productId = route.params.id;
 const apiUrl = `${runtime.public.baseApiUrl}/products/${productId}`;
-
 const { data, error, pending } = await useFetch(apiUrl);
+const loading = ref(false);
 
-console.log(data.value);
+const form = ref({
+    name: data.value.product.name,
+    price: data.value.product.price,
+    category: data.value.product.category,
+    image_url: data.value.product.image_url,
+    description: data.value.product.description,
+});
 
 function navigate() {
-    router.push("/edit/" + productId);
+    router.replace("/products/" + productId);
+}
+
+async function handleSubmit() {
+    loading.value = true;
+    const { data, error } = await useFetch(apiUrl, {
+        method: "PUT",
+        body: form.value,
+    });
+
+    if (error.value) {
+        toast.error({ title: "Error!", message: "Something went wrong." });
+        return;
+    }
+
+    toast.success({
+        title: "Success!",
+        message: "Product updated successfully.",
+    });
+
+    loading.value = false;
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    navigate();
 }
 </script>
 
 <template>
+    <Loading v-if="loading" />
     <div class="container">
         <h1>Editar Produto</h1>
 
-        <form @submit.prevent="salvar">
+        <form @submit.prevent="handleSubmit">
             <div class="inputBox">
                 <label for="name">name</label>
-                <input v-model="data.product.name" id="name" type="text" />
+                <input v-model="form.name" id="name" type="text" />
             </div>
 
             <div class="inputBox">
                 <label for="preco">Price</label>
                 <input
-                    v-model.number="data.product.price"
+                    v-model.number="form.price"
                     id="price"
                     type="number"
                     step="0.01"
@@ -39,26 +69,18 @@ function navigate() {
             </div>
             <div class="inputBox">
                 <label for="category">Category</label>
-                <input
-                    v-model="data.product.category"
-                    id="category"
-                    type="text"
-                />
+                <input v-model="form.category" id="category" type="text" />
             </div>
 
             <div class="inputBox">
                 <label for="imgUrl">imgUrl</label>
-                <input
-                    v-model="data.product.image_url"
-                    id="imgUrl"
-                    type="url"
-                />
+                <input v-model="form.image_url" id="imgUrl" type="url" />
             </div>
 
             <div class="inputBox">
                 <label for="descricao">Description</label>
                 <textarea
-                    v-model="data.product.description"
+                    v-model="form.description"
                     id="description"
                 ></textarea>
             </div>
@@ -68,7 +90,6 @@ function navigate() {
 
         <div v-if="mensagem">{{ mensagem }}</div>
     </div>
-    <h1>EDIT</h1>
 </template>
 
 <style scoped>
