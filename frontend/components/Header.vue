@@ -13,8 +13,12 @@ const qtd = computed(() => {
             <h1 class="text-xl font-bold">Ecommerce</h1>
         </NuxtLink>
 
-         <NuxtLink to="/create" class="link">
+        <NuxtLink to="/create" class="link create">
             <h1 class="text-xl font-bold">Create Product</h1>
+            <span>
+                (This option has no context. It is only used to perform crud
+                operations.)</span
+            >
         </NuxtLink>
 
         <nav>
@@ -53,6 +57,7 @@ h1 {
     position: relative;
     color: var(--color-text-secondary);
 
+
     .badge {
         color: var(--color-bg-primary);
         font-weight: 400;
@@ -67,6 +72,14 @@ h1 {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+.create{
+    align-items: center;
+    justify-content: center;
+    span{
+        font-size: .7rem;
     }
 }
 </style>
