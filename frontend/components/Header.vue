@@ -13,8 +13,10 @@ const qtd = computed(() => {
             <h1 class="text-xl font-bold">Ecommerce</h1>
         </NuxtLink>
 
-        <NuxtLink to="/create" class="link create">
-            <h1 class="text-xl font-bold">Create Product</h1>
+        <NuxtLink to="/create" class="create">
+            <h1 class="text-xl font-bold">
+                Create Product <strong>(i)</strong>
+            </h1>
             <span>
                 (This option has no context. It is only used to perform crud
                 operations.)</span
@@ -57,7 +59,6 @@ h1 {
     position: relative;
     color: var(--color-text-secondary);
 
-
     .badge {
         color: var(--color-bg-primary);
         font-weight: 400;
@@ -75,11 +76,42 @@ h1 {
     }
 }
 
-.create{
+.create {
+    text-decoration: underline var(--color-text-secondary);
+    position: relative;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    span{
-        font-size: .7rem;
+
+    h1 {
+        font-size: 0.8rem;
+        font-weight: semibold;
+        color: var(--color-text-secondary);
+    }
+
+    flex-direction: column;
+    span {
+        display: none;
+        font-size: 0.7rem;
+    }
+}
+
+.create:hover {
+    span {
+        display: block;
+        font-size: 0.7rem;
+        color: var(--color-text-secondary);
+        font-weight: 400;
+        text-align: center;
+        position: absolute;
+        top: 30px;
+        border-radius: 8px;
+        padding: 8px;
+        background-color: var(--color-bg-primary);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        width: 200px;
+        strong {
+            font-size: 0.5rem;
+        }
     }
 }
 </style>

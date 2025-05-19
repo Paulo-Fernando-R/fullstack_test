@@ -222,4 +222,15 @@ form {
         font-weight: 600;
     }
 }
+
+.error {
+    color: red;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+    .container {
+       padding-top: 8rem;
+    }
+}
 </style>

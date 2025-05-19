@@ -73,7 +73,7 @@ async function handleSubmit() {
 <template>
     <Loading v-if="loading" />
     <div class="container">
-        <h1>Create Producto</h1>
+        <h1>Create Product</h1>
 
         <form @submit.prevent="handleSubmit">
             <div class="inputBox">
@@ -215,6 +215,11 @@ form {
     .error {
         color: red;
         font-size: 0.75rem;
+    }
+}
+@media (max-width: 600px) {
+    .container {
+        padding-top: 8rem;
     }
 }
 </style>
