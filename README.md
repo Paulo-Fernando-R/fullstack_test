@@ -7,7 +7,7 @@ Este guia detalha os passos necessários para executar o projeto localmente. Cer
 
 1.  **Clonar o Repositório:**
     ```bash
-    git clone [https://github.com/Paulo-Fernando-R/fullstack_test.git]
+    git clone https://github.com/Paulo-Fernando-R/fullstack_test.git
     cd [nome do diretório do seu projeto]
     ```
 
